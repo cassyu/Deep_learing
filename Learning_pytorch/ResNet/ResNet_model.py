@@ -37,6 +37,7 @@ class BottleNeck(nn.Module):
      expansion = 4
 
      def __init__(self,in_channel,out_channel,stride=1,downsample=None):
+
          super(BottleNeck,self).__init__()
          self.conv1 = nn.Conv2d(in_channel=in_channel,out_channel= out_channel,
                                 kernel_size=1,stride=1,bias=False)
@@ -55,7 +56,7 @@ class BottleNeck(nn.Module):
          self.relu = nn.ReLU(inplace=True)
          self.downsample = downsample
 
-    def forward(self,x):
+     def forward(self,x):
         identity = x
         if self.downsample is not None:
             identity = self.downsample(x)
