@@ -21,4 +21,4 @@ for road in os.listdir(image_dir):
 
 csv_file = pd.DataFrame({'image':image_list,'label':label_list})
 csv_file = shuffle(csv_file)
-csv_file.to_csv(os.path.join(save_path,'train.csv'),index=False)
+csv_file.to_csv(os.path.join(savepath,'train.csv'),index=False)

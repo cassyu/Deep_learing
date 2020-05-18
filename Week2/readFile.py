@@ -40,8 +40,8 @@ all = pd.DataFrame({'image':image_list,'label':label_list})
 all_shuffle = shuffle(all)
 
 train_dataset = all_shuffle[:sixth_part]
-val_dataset = allshuffle[sixth_part:eigth_part]
-test_dataset= all_shuffle[eigth_part:]
+val_dataset = all_shuffle[sixth_part:eight_part]
+test_dataset= all_shuffle[eight_part:]
 
 
 train_dataset.to_csv()

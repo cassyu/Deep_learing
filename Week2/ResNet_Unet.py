@@ -126,32 +126,32 @@ class UNetEncode(nn.Module):
 
         return blocks
 
-class UNet(nn.Module):
-    def __init__(self,n_classed=2,depth=5,wf=6,padding=False,batch_norm=False,up_mode='upconv'):
-        super(UNet,self).__init__()
+# class UNet(nn.Module):
+#     def __init__(self,n_classed=2,depth=5,wf=6,padding=False,batch_norm=False,up_mode='upconv'):
+#         super(UNet,self).__init__()
 
-        assert up_mode in ('upconv','upsample')
-        self.padding = padding
-        self.depth = depth
+#         assert up_mode in ('upconv','upsample')
+#         self.padding = padding
+#         self.depth = depth
 
-        prev_channels = 2**(wf+ depth-1)
+#         prev_channels = 2**(wf+ depth-1)
 
-        self.encode = UNetEncode()
-        self.up_path = nn.ModuleList()
+#         self.encode = UNetEncode()
+#         self.up_path = nn.ModuleList()
 
-        for i in reversed(range(depth -1)):
-            self.up_path.append(UNetUpBlock(prev_channels,2**(wf+i),up_mode,padding,batch_norm))
-            prev_channels = 2**(wf +i)
+#         for i in reversed(range(depth -1)):
+#             self.up_path.append(UNetUpBlock(prev_channels,2**(wf+i),up_mode,padding,batch_norm))
+#             prev_channels = 2**(wf +i)
 
-        self.last = nn.Conv2d(prev_channels,n_classed,kernel_size=1)
+#         self.last = nn.Conv2d(prev_channels,n_classed,kernel_size=1)
 
 
-    def forward(self,x):
-        blocks = self.encode(x)
-        x = blocks[-1]
-        for i ,up in enumerate(self.up_path):
-            x = up(x,blocks[-i-2])
-        return self.last(x)
+#     def forward(self,x):
+#         blocks = self.encode(x)
+#         x = blocks[-1]
+#         for i ,up in enumerate(self.up_path):
+#             x = up(x,blocks[-i-2])
+#         return self.last(x)
 
 
 # Resnet 101
@@ -172,6 +172,7 @@ class Block(nn.Module):
 class ResBlock(nn.Module):
     def __init__(self,in_channels,out_channels,kernel_size=3,padding=1,stride=1):
         super(ResBlock, self).__init__()
+        
         self.bn1 = nn.BatchNorm2d(in_channels)
         self.relu1 = nn.ReLU(inplace=True)
         self.conv1 = nn.Conv2d(in_channels,out_channels,kernel_size=kernel_size,padding=padding,stride=stride)
